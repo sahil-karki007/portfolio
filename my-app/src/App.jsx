@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { 
   Code, 
   FolderGit2, 
@@ -12,6 +11,14 @@ import {
   Send 
 } from 'lucide-react';
 import profileImage from './assets/zoro.png';
+import { 
+  fetchHome, 
+  fetchProjects, 
+  fetchSkills, 
+  fetchAbout, 
+  fetchContactInfo, 
+  sendContactMessage 
+} from './api';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,28 +36,28 @@ function App() {
   const [submitting, setSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
 
-  // Fetch data from Django backend
+  // Fetch data from Django backend using api.js helper functions
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/home/')
+    fetchHome()
       .then(res => setHomeData(res.data[0] || res.data))
       .catch(err => console.log('Home API error:', err));
 
-    axios.get('http://127.0.0.1:8000/api/projects/')
+    fetchProjects()
       .then(res => setProjects(res.data))
       .catch(err => console.log('Projects API error:', err));
 
-    axios.get('http://127.0.0.1:8000/api/skills-categories/')
+    fetchSkills()
       .then(res => {
         const allSkills = res.data.flatMap(category => category.skills || []);
         setSkills(allSkills);
       })
       .catch(err => console.log('Skills API error:', err));
 
-    axios.get('http://127.0.0.1:8000/api/about/')
+    fetchAbout()
       .then(res => setAboutData(res.data[0] || res.data))
       .catch(err => console.log('About API error:', err));
 
-    axios.get('http://127.0.0.1:8000/api/contact-info/')
+    fetchContactInfo()
       .then(res => setContactData(res.data[0] || res.data))
       .catch(err => console.log('Contact API error:', err));
   }, []);
@@ -59,13 +66,12 @@ function App() {
     e.preventDefault();
     setSubmitting(true);
 
-    // Added a default subject field to satisfy the Django backend validation requirement
     const payload = {
       ...formData,
       subject: "New Message from Portfolio"
     };
 
-    axios.post('http://127.0.0.1:8000/api/contact-messages/', payload)
+    sendContactMessage(payload)
       .then(() => {
         setSubmitMessage('Message sent successfully!');
         setFormData({ name: '', email: '', message: '' });

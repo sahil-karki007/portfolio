@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://sahil-portfolio-backend-o0bv.onrender.com/api/';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:8000/api/';
 
 export const fetchHome = () => axios.get(`${API_BASE_URL}home/`);
 export const fetchProjects = () => axios.get(`${API_BASE_URL}projects/`);
