@@ -231,9 +231,9 @@ function App() {
                       GitHub <ExternalLink size={16} />
                     </a>
                   )}
-                  {(project.live_link || project.live_url || project.demo_link) && (
+                  {project.live_demo_url && (
                     <a 
-                      href={project.live_link || project.live_url || project.demo_link} 
+                      href={project.live_demo_url} 
                       target="_blank" 
                       rel="noreferrer" 
                       className="inline-flex items-center gap-2 text-green-400 hover:text-green-300 text-sm font-medium"
