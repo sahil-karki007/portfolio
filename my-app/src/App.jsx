@@ -18,7 +18,7 @@ import {
   fetchAbout, 
   fetchContactInfo, 
   sendContactMessage 
-} from './api';
+} from './services/api';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
