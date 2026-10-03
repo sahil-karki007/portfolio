@@ -218,11 +218,30 @@ function App() {
                   <h4 className="text-xl font-semibold mb-2 text-white">{project.title}</h4>
                   <p className="text-neutral-400 text-sm mb-4 leading-relaxed">{project.description}</p>
                 </div>
-                {project.github_link && (
-                  <a href={project.github_link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 text-sm font-medium">
-                    View Project <ExternalLink size={16} />
-                  </a>
-                )}
+                
+                {/* Links Container */}
+                <div className="flex items-center gap-4 pt-4 border-t border-neutral-800/60 mt-auto">
+                  {(project.github_link || project.github_url) && (
+                    <a 
+                      href={project.github_link || project.github_url} 
+                      target="_blank" 
+                      rel="noreferrer" 
+                      className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 text-sm font-medium"
+                    >
+                      GitHub <ExternalLink size={16} />
+                    </a>
+                  )}
+                  {(project.live_link || project.live_url || project.demo_link) && (
+                    <a 
+                      href={project.live_link || project.live_url || project.demo_link} 
+                      target="_blank" 
+                      rel="noreferrer" 
+                      className="inline-flex items-center gap-2 text-green-400 hover:text-green-300 text-sm font-medium"
+                    >
+                      Live Demo <ExternalLink size={16} />
+                    </a>
+                  )}
+                </div>
               </div>
             ))
           ) : (
