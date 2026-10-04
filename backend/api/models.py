@@ -1,15 +1,12 @@
 from django.db import models
 
 class HomeSection(models.Model):
-    title = models.CharField(max_length=255, default="Welcome to My Personal Portfolio")
-    greeting = models.CharField(max_length=255, default="Hello! there")
-    name = models.CharField(max_length=255, default="Sahil Karki")
-    bio = models.TextField(default="I'm a passionate web developer and designer who loves creating amazing digital experiences.")
-    resume_file = models.FileField(upload_to='resumes/', blank=True, null=True)
-    profile_image = models.ImageField(upload_to='profile/', blank=True, null=True)
+    title = models.CharField(max_length=255, blank=True, null=True)
+    subtitle = models.CharField(max_length=255, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"Home Content - {self.name}"
+        return self.title or "Home Section"
 
 class Project(models.Model):
     title = models.CharField(max_length=255)
@@ -22,43 +19,48 @@ class Project(models.Model):
         return self.title
 
 class SkillCategory(models.Model):
-    name = models.CharField(max_length=100) # e.g., "Programming Languages"
-    order = models.IntegerField(default=0)
+    name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name
 
 class Skill(models.Model):
     category = models.ForeignKey(SkillCategory, related_name='skills', on_delete=models.CASCADE)
-    name = models.CharField(max_length=100) # e.g., "Python"
+    name = models.CharField(max_length=255)
 
     def __str__(self):
-        return f"{self.category.name} -> {self.name}"
+        return self.name
 
 class AboutSection(models.Model):
-    bio_paragraph_1 = models.TextField()
-    bio_paragraph_2 = models.TextField()
-    bio_paragraph_3 = models.TextField()
-    bio_paragraph_4 = models.TextField()
-    education_title = models.CharField(max_length=255, default="Masters Of Computer Application (MCA)")
-    education_institution = models.CharField(max_length=255, default="Indira Gandhi National Open University (IGNOU)")
-    education_years = models.CharField(max_length=100, default="2026 - Current")
+    bio_p1 = models.TextField(blank=True, null=True)
+    bio_p2 = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return "About Me Section Content"
+        return "About Section"
+
+class EducationItem(models.Model):
+    about_section = models.ForeignKey(AboutSection, related_name='educations', on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)         # e.g., Master of Computer Applications
+    institution = models.CharField(max_length=255)   # e.g., IGNOU
+    years = models.CharField(max_length=100)         # e.g., 2025 - 2027
+
+    def __str__(self):
+        return f"{self.title} at {self.institution}"
 
 class ContactMessage(models.Model):
     name = models.CharField(max_length=255)
-    subject = models.CharField(max_length=255)
+    email = models.EmailField()
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Message from {self.name} - {self.subject}"
+        return f"Message from {self.name}"
 
 class ContactInfo(models.Model):
-    phone = models.CharField(max_length=50, default="+91 9220460134")
-    email = models.EmailField(default="karkisahil2003@gmail.com")
+    email = models.EmailField(blank=True, null=True)
+    github = models.URLField(blank=True, null=True)
+    linkedin = models.URLField(blank=True, null=True)
+    resume = models.FileField(upload_to='resumes/', blank=True, null=True)
 
     def __str__(self):
-        return "Contact Details Footer"
+        return "Contact Info"

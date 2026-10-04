@@ -1,5 +1,14 @@
 from rest_framework import serializers
-from .models import HomeSection, Project, SkillCategory, Skill, AboutSection, ContactMessage, ContactInfo
+from .models import (
+    HomeSection, 
+    Project, 
+    SkillCategory, 
+    Skill, 
+    AboutSection, 
+    EducationItem, 
+    ContactMessage, 
+    ContactInfo
+)
 
 class HomeSectionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -23,10 +32,17 @@ class SkillCategorySerializer(serializers.ModelSerializer):
         model = SkillCategory
         fields = ['id', 'name', 'skills']
 
+class EducationItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EducationItem
+        fields = ['id', 'title', 'institution', 'years']
+
 class AboutSectionSerializer(serializers.ModelSerializer):
+    educations = EducationItemSerializer(many=True, read_only=True)
+
     class Meta:
         model = AboutSection
-        fields = '__all__'
+        fields = ['id', 'bio_p1', 'bio_p2', 'educations']
 
 class ContactMessageSerializer(serializers.ModelSerializer):
     class Meta:

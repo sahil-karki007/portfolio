@@ -1,9 +1,25 @@
 from django.contrib import admin
-from .models import HomeSection, Project, SkillCategory, Skill, AboutSection, ContactMessage, ContactInfo
+from .models import (
+    HomeSection, 
+    Project, 
+    SkillCategory, 
+    Skill, 
+    AboutSection, 
+    EducationItem, 
+    ContactMessage, 
+    ContactInfo
+)
+
+class EducationItemInline(admin.TabularInline):
+    model = EducationItem
+    extra = 1
+
+class AboutSectionAdmin(admin.ModelAdmin):
+    inlines = [EducationItemInline]
 
 class SkillInline(admin.TabularInline):
     model = Skill
-    extra = 3
+    extra = 1
 
 class SkillCategoryAdmin(admin.ModelAdmin):
     inlines = [SkillInline]
@@ -11,6 +27,6 @@ class SkillCategoryAdmin(admin.ModelAdmin):
 admin.site.register(HomeSection)
 admin.site.register(Project)
 admin.site.register(SkillCategory, SkillCategoryAdmin)
-admin.site.register(AboutSection)
+admin.site.register(AboutSection, AboutSectionAdmin)
 admin.site.register(ContactMessage)
 admin.site.register(ContactInfo)
