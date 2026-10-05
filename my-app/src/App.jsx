@@ -270,17 +270,45 @@ function App() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 px-6 max-w-7xl mx-auto border-t border-neutral-900">
-        <div className="flex items-center gap-3 mb-8">
-          <User className="text-blue-500" size={28} />
-          <h3 className="text-3xl font-bold">About Me</h3>
-        </div>
-        <div className="bg-neutral-900/50 border border-neutral-800 rounded-2xl p-8">
-          <p className="text-neutral-300 text-lg leading-relaxed">
-            {aboutData?.bio || "Bio loading from Django backend..."}
-          </p>
-        </div>
-      </section>
+<section id="about" className="py-20 px-6 max-w-7xl mx-auto border-t border-neutral-900">
+  <div className="flex items-center gap-3 mb-12">
+    <User className="text-blue-500" size={28} />
+    <h3 className="text-3xl font-bold">About Me</h3>
+  </div>
+
+  <div className="grid md:grid-cols-2 gap-12 items-start">
+    {/* Bio Paragraphs */}
+    <div className="space-y-4 text-neutral-400 text-base leading-relaxed">
+      {about?.bio_p1 ? (
+        <p>{about.bio_p1}</p>
+      ) : (
+        <p className="text-neutral-500">Bio coming soon...</p>
+      )}
+      {about?.bio_p2 && <p>{about.bio_p2}</p>}
+    </div>
+
+    {/* Dynamic Education List */}
+    <div className="space-y-6">
+      <h4 className="text-xl font-semibold text-white mb-4">Education</h4>
+      {about?.educations && about.educations.length > 0 ? (
+        about.educations.map((edu) => (
+          <div 
+            key={edu.id} 
+            className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-5 hover:border-blue-500/50 transition duration-300"
+          >
+            <h5 className="text-lg font-semibold text-white">{edu.title}</h5>
+            <p className="text-blue-400 text-sm mt-1">{edu.institution}</p>
+            <span className="inline-block text-xs text-neutral-500 mt-3 bg-neutral-800 px-2.5 py-1 rounded-full">
+              {edu.years}
+            </span>
+          </div>
+        ))
+      ) : (
+        <p className="text-neutral-500 text-sm">No education entries added yet. Add them in the Django admin panel!</p>
+      )}
+    </div>
+  </div>
+</section>
 
       {/* Contact Section */}
       <section id="contact" className="py-20 px-6 max-w-7xl mx-auto border-t border-neutral-900">
