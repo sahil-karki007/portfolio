@@ -4,6 +4,7 @@ class HomeSection(models.Model):
     title = models.CharField(max_length=255, blank=True, null=True)
     subtitle = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
+    resume_file = models.FileField(upload_to='resumes/', blank=True, null=True)
 
     def __str__(self):
         return self.title or "Home Section"
