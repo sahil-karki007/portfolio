@@ -277,7 +277,7 @@ function App() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 items-start">
-          {/* Bio Paragraphs (Using aboutData instead of about) */}
+          {/* Bio Paragraphs */}
           <div className="space-y-4 text-neutral-400 text-base leading-relaxed">
             {aboutData?.bio_p1 ? (
               <p>{aboutData.bio_p1}</p>
@@ -296,11 +296,34 @@ function App() {
                   key={edu.id} 
                   className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-5 hover:border-blue-500/50 transition duration-300"
                 >
-                  <h5 className="text-lg font-semibold text-white">{edu.title}</h5>
+                  <div className="flex justify-between items-start gap-2">
+                    <h5 className="text-lg font-semibold text-white">{edu.title}</h5>
+                    
+                    {edu.pursuing && (
+                      <span className="text-xs bg-blue-500/20 text-blue-400 px-2.5 py-1 rounded-full font-medium shrink-0">
+                        Pursuing
+                      </span>
+                    )}
+                  </div>
+                  
                   <p className="text-blue-400 text-sm mt-1">{edu.institution}</p>
-                  <span className="inline-block text-xs text-neutral-500 mt-3 bg-neutral-800 px-2.5 py-1 rounded-full">
-                    {edu.years}
-                  </span>
+                  
+                  {/* Badges for Years, CGPA, and Percentage */}
+                  <div className="flex flex-wrap items-center gap-2 mt-4">
+                    <span className="text-xs text-neutral-400 bg-neutral-800 px-2.5 py-1 rounded-full">
+                      {edu.years}
+                    </span>
+                    {edu.cgpa && (
+                      <span className="text-xs text-neutral-300 bg-neutral-800 px-2.5 py-1 rounded-full">
+                        CGPA: <strong className="text-white">{edu.cgpa}</strong>
+                      </span>
+                    )}
+                    {edu.percentage && (
+                      <span className="text-xs text-neutral-300 bg-neutral-800 px-2.5 py-1 rounded-full">
+                        Percentage: <strong className="text-white">{edu.percentage}</strong>
+                      </span>
+                    )}
+                  </div>
                 </div>
               ))
             ) : (
