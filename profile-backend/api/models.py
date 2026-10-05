@@ -43,7 +43,11 @@ class EducationItem(models.Model):
     about_section = models.ForeignKey(AboutSection, related_name='educations', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)         # e.g., Master of Computer Applications
     institution = models.CharField(max_length=255)   # e.g., IGNOU
-    years = models.CharField(max_length=100)         # e.g., 2025 - 2027
+    years = models.CharField(max_length=100) 
+    
+    cgpa = models.CharField(max_length=50, blank=True, null=True)
+    percentage = models.CharField(max_length=50, blank=True, null=True)
+    pursuing = models.BooleanField(default=False)        # e.g., 2025 - 2027
 
     def __str__(self):
         return f"{self.title} at {self.institution}"
