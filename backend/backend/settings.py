@@ -54,7 +54,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = [
+    "https://portfolio-eight-psi-q12fnpmh7t.vercel.app",
+    "http://localhost:3000", # for local testing
+]
 ROOT_URLCONF = 'backend.urls'
 
 TEMPLATES = [
@@ -81,7 +84,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database configuration (supports Supabase or Render PostgreSQL)
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
+        default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3'),
         conn_max_age=600
     )
 }

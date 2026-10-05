@@ -17,7 +17,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
     serializer_class = ProjectSerializer
 
 class SkillCategoryViewSet(viewsets.ModelViewSet):
-    queryset = SkillCategory.objects.all().order_by('order')
+    queryset = SkillCategory.objects.all()
     serializer_class = SkillCategorySerializer
 
 class AboutView(generics.RetrieveAPIView):
