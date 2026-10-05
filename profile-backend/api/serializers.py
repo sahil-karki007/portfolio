@@ -35,7 +35,7 @@ class SkillCategorySerializer(serializers.ModelSerializer):
 class EducationItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = EducationItem
-        fields = ['id', 'title', 'institution', 'years']
+        fields = ['id', 'title', 'institution', 'years','cgpa', 'percentage', 'pursuing']
 
 class AboutSectionSerializer(serializers.ModelSerializer):
     educations = EducationItemSerializer(many=True, read_only=True)
