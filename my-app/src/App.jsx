@@ -345,8 +345,8 @@ function App() {
               Have a project in mind or want to collaborate? Feel free to reach out directly or fill out the contact form.
             </p>
             <div className="space-y-3 text-neutral-300">
-              <p><strong className="text-white">Email:</strong> {contactData?.email || "sahil@example.com"}</p>
-              <p><strong className="text-white">Phone:</strong> {contactData?.phone || "+91 9876543210"}</p>
+              <p><strong className="text-white">Email:</strong> {contactData?.email || "karkisahil@gmail.com"}</p>
+              <p><strong className="text-white">Phone:</strong> {contactData?.phone || "+91 9220460134"}</p>
             </div>
           </div>
 
